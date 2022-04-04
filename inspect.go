@@ -8,7 +8,8 @@ package seekret
 import (
 	"bufio"
 	"bytes"
-	"github.com/apuigsech/seekret/models"
+
+	"github.com/eloymg/seekret/models"
 )
 
 type workerJob struct {
@@ -61,7 +62,7 @@ func inspect_worker(id int, jobs <-chan workerJob, results chan<- workerResult) 
 
 		content := job.objectGroup[0].Content
 
-		for ri,r := range job.ruleList {
+		for ri, r := range job.ruleList {
 			if r.Enabled == false {
 				continue
 			}
@@ -77,11 +78,11 @@ func inspect_worker(id int, jobs <-chan workerJob, results chan<- workerResult) 
 				nLine = nLine + 1
 				line := fs.Text()
 
-				runResultList := r.Run([]byte(line))
+				runResult := r.Run(line)
 
-				for oi,_ := range job.objectGroup {
-					for _, runResult := range runResultList {
-						secret := models.NewSecret(&job.objectGroup[oi], &job.ruleList[ri], runResult.Nline, runResult.Line)
+				for oi, _ := range job.objectGroup {
+					if runResult {
+						secret := models.NewSecret(&job.objectGroup[oi], &job.ruleList[ri], nLine, line)
 						secret.SetException(exceptionCheck(job.exceptionList, *secret))
 						result.secretList = append(result.secretList, *secret)
 					}

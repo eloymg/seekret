@@ -7,11 +7,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/apuigsech/seekret"
-	"github.com/apuigsech/seekret-source-dir"
-	"github.com/apuigsech/seekret-source-git"
-	"github.com/urfave/cli"
 	"os"
+
+	"github.com/eloymg/seekret"
+	"github.com/eloymg/seekret-source-dir"
+	sourcedir "github.com/eloymg/seekret-source-dir"
+	sourcegit "github.com/eloymg/seekret-source-git"
+	"github.com/urfave/cli"
 )
 
 const (
@@ -171,10 +173,10 @@ func seekretGit(c *cli.Context) error {
 	//   * staged-files: Include stateg dile contect as object.
 	//   * commit-count: Ammount of commits to analise.
 	options := map[string]interface{}{
-		"commit-files": false,
+		"commit-files":    false,
 		"commit-messages": false,
-		"staged-files": false,
-		"commit-count": DefaultCommitCount,
+		"staged-files":    false,
+		"commit-count":    DefaultCommitCount,
 	}
 
 	if c.IsSet("commit-files") {

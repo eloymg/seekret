@@ -6,7 +6,7 @@
 package seekret
 
 import (
-	"github.com/apuigsech/seekret/models"
+	"github.com/eloymg/seekret/models"
 )
 
 type LoadOptions map[string]interface{}

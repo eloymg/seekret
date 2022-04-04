@@ -7,10 +7,11 @@ package main
 
 import (
 	"bufio"
-	"github.com/apuigsech/seekret"
-	"github.com/apuigsech/seekret/models"
 	"os"
 	"path/filepath"
+
+	"github.com/eloymg/seekret"
+	"github.com/eloymg/seekret/models"
 )
 
 func LoadKnownFromFile(s *seekret.Seekret, file string) error {

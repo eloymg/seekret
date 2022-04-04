@@ -7,13 +7,14 @@ package seekret
 
 import (
 	"fmt"
-	"github.com/apuigsech/seekret/models"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
+
+	"github.com/eloymg/seekret/models"
+	"gopkg.in/yaml.v2"
 )
 
 // Seekret contains a seekret context and exposes the API to manipulate it.
@@ -170,10 +171,9 @@ func (s *Seekret) DisableRuleByRegexp(name string) int {
 	return setRuleEnabledByRegexp(s.ruleList, name, false)
 }
 
-
 func setRuleEnabled(ruleList []models.Rule, name string, enabled bool) error {
 	found := false
-	for i,r := range ruleList {
+	for i, r := range ruleList {
 		if r.Name == name {
 			found = true
 			ruleList[i].Enabled = enabled
@@ -189,11 +189,11 @@ func setRuleEnabled(ruleList []models.Rule, name string, enabled bool) error {
 
 func setRuleEnabledByRegexp(ruleList []models.Rule, nameRegexp string, enabled bool) int {
 	count := 0
-	nameMatch,err := regexp.Compile("(?i)" + nameRegexp)
+	nameMatch, err := regexp.Compile("(?i)" + nameRegexp)
 	if err != nil {
 		return 0
 	}
-	for i,r := range ruleList {
+	for i, r := range ruleList {
 		if nameMatch.Match([]byte(r.Name)) {
 			count = count + 1
 			ruleList[i].Enabled = enabled
